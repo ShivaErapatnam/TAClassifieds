@@ -90,6 +90,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Resources\css\bootstrap-theme.min.css" />
+    <Content Include="Resources\css\bootstrap.min.css" />
+    <Content Include="Resources\css\classifiedStyles.css" />
+    <Content Include="Resources\css\font-awesome.min.css" />
+    <Content Include="Resources\css\jquery-ui.css" />
+    <Content Include="Resources\fonts\fontawesome-webfont.svg" />
+    <Content Include="Resources\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Resources\images\2014_ford_fiesta_india.jpg" />
+    <Content Include="Resources\images\car.jpg" />
+    <Content Include="Resources\images\car1.jpg" />
+    <Content Include="Resources\images\company_logo.png" />
+    <Content Include="Resources\images\electronics.jpg" />
+    <Content Include="Resources\images\fb.png" />
+    <Content Include="Resources\images\fb.svg" />
+    <Content Include="Resources\images\ford.jpg" />
+    <Content Include="Resources\images\gmail.png" />
+    <Content Include="Resources\images\google.png" />
+    <Content Include="Resources\images\hondacity.jpg" />
+    <Content Include="Resources\images\Houses_for_rent.jpg" />
+    <Content Include="Resources\images\house_rent.jpg" />
+    <Content Include="Resources\images\polo.jpg" />
+    <Content Include="Resources\images\smartphones.jpg" />
+    <Content Include="Resources\images\smart_phones_new.jpg" />
+    <Content Include="Resources\images\social-media-icons-15.png" />
+    <Content Include="Resources\images\usedcar1.jpg" />
+    <Content Include="Resources\js\bootstrap.min.js" />
+    <Content Include="Resources\js\jquery-ui.min.js" />
+    <Content Include="Resources\js\jquery.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +130,12 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Resources\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Resources\fonts\fontawesome-webfont.woff" />
+    <Content Include="Resources\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Resources\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Resources\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Resources\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -113,10 +147,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Resources\css\" />
-    <Folder Include="Resources\fonts\" />
-    <Folder Include="Resources\images\" />
-    <Folder Include="Resources\js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
