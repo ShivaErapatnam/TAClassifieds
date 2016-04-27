@@ -113,6 +113,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Resources\css\" />
+    <Folder Include="Resources\fonts\" />
+    <Folder Include="Resources\images\" />
+    <Folder Include="Resources\js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
