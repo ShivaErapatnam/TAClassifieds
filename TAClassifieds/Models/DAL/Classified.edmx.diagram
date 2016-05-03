@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9affc30d23ca4c708ff246c8f03ab59b" Name="Diagram1">
+        <EntityTypeShape EntityType="TAC_Team4Model.TAC_Category" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAC_Team4Model.TAC_Classified" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAC_Team4Model.TAC_ClassifiedContact" Width="1.5" PointX="10.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAC_Team4Model.TAC_Country" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TAC_Team4Model.TAC_User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="TAC_Team4Model.FK_TAC_Classified_TAC_Classified" ManuallyRouted="false" />
+        <AssociationConnector Association="TAC_Team4Model.FK_TAC_ClassifiedContact_TAC_Classified" ManuallyRouted="false" />
+        <AssociationConnector Association="TAC_Team4Model.FK__TAC_User__Countr__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="TAC_Team4Model.FK__TAC_User__Countr__1FCDBCEB" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
