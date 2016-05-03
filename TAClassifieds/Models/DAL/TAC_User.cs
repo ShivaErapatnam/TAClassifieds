@@ -11,7 +11,8 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TAC_User
     {
         public System.Guid UserId { get; set; }
@@ -34,5 +35,6 @@ namespace TAClassifieds.Models.DAL
     
         public virtual TAC_Country TAC_Country { get; set; }
         public virtual TAC_Country TAC_Country1 { get; set; }
+
     }
 }
