@@ -1,0 +1,27 @@
+﻿@model TAClassifieds.Models.MyAccountClassifieds
+@{
+    ViewBag.Title = "ViewDetail";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="row">
+    <div class="detailcontainer">
+        <div class="col-xs-5">
+            <img class="detail-image" src="@Model.ClassifiedImage" width="400px" height="300px">
+        </div>
+        <div class="col-xs-7">
+            <h2>@Model.ClassifiedTitle</h2>
+            <p>
+                <span class="label label-default">@Model.Location, @Model.PostedDate.ToString("MMMM dd yyyy")</span>
+            </p>
+            <p> @Model.Description</p>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-2 col-sm-2 col-sm-offset-2">
+        <h2><span class="label label-success">Rs.@(string.IsNullOrEmpty(Model.ClassifiedPrice.ToString()) ? 0: Model.ClassifiedPrice)</span></h2>
+    </div>
+</div>
+

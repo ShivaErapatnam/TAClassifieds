@@ -1,0 +1,52 @@
+﻿@model TAClassifieds.Models.MyAccountModel
+@{
+    ViewBag.Title = "MyAccount";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="row">
+    <div class="adcontainer">
+        <label>Ads posted by me</label>
+        <table class="table">
+            @if (Model.myAccountClassifieds.Count > 0)
+            {
+                foreach (var item in Model.myAccountClassifieds)
+                {                
+                <tr class="list-box">
+                    <td class="col-xs-4">
+                        <img src="@item.ClassifiedImage" width="150px" height="120px">
+                    </td>
+                    <td class="col-xs-8">
+                        @*<a href="viewdetail.html"><h4>@item.ClassifiedTitle</h4></a>*@
+                        <h4>@Html.ActionLink(@item.ClassifiedTitle, "ViewDetail", routeValues: new { classifiedId = item.ClassifiedId })</h4>
+                        <p>@item.Location</p>
+                        <p>@item.PostedDate.ToString("MMMM dd yyyy")</p>
+                    </td>
+                    <td class="col-xs-2">
+                        <h4>@item.ClassifiedPrice</h4>
+                    </td>
+                </tr>
+                }
+            }
+            else
+            {
+                <tr class="list-box">
+                    <td class="col-xs-10">
+                        <h3>No records found</h3>
+                    </td>
+                   
+                </tr>
+            }
+
+        </table>
+        <ul class="pagination pull-right">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div>

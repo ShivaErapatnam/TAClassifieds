@@ -1,0 +1,103 @@
+﻿@model TAClassifieds.Models.PostAdModel
+@{Layout = "~/Views/Shared/_MainLayout.cshtml";}
+
+<div class="row">
+    <label class="col-sm-offset-1 col-sm-4">
+        <h4>View Ads in:</h4>
+    </label>
+    <div class="col-sm-10 col-sm-offset-1 ">
+        <div class="col-sm-3">
+            <a href="#">
+                <img src="../Resources/images/electronics.jpg" class="image-box" width="180px" height="150px" id="Electronics" />
+            </a>
+            <h4 class="col-sm-offset-2">Electronics</h4>
+        </div>
+        <div class="col-sm-3">
+            <a href="#">
+                <img src="../Resources/images/smart_phones_new.jpg" class="image-box" width="180px" height="150px" id="MobilePhones" />
+            </a>
+            <h4 class="col-sm-offset-2">Mobile Phones</h4>
+        </div>
+        <div class="col-sm-3">
+            <a href="#">
+                <img src="../Resources/images/house_rent.jpg" class="image-box" width="180px" height="150px" id="Rental" />
+            </a>
+            <h4 class="col-sm-offset-2">House Rental</h4>
+        </div>
+        <div class="col-sm-3">
+            <a href="#">
+                <img src="../Resources/images/car1.jpg" class="image-box" width="180px" height="150px" id="Automobiles" />
+            </a>
+            <h4 class="col-sm-offset-2">Automobiles</h4>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="logincontainer">
+        <h4><label>Post an ad for: <span class="category"></span></label></h4>
+        @Html.ValidationSummary();
+        @using (Html.BeginForm("PostAd", "Classified", FormMethod.Post, new { enctype = "multipart/form-data",@class= "form-horizontal form-signin form-margin" }))
+        {   @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(model => model.Classified.ClassifiedTitle, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-sm-6">
+                    @Html.EditorFor(model => model.Classified.ClassifiedTitle, new { htmlAttributes = new { @class = "form-control", @placeholder = "Give the Title for your ad here" } })
+                    @Html.ValidationMessageFor(model => model.Classified.ClassifiedTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Classified.Description, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-sm-6">
+                    @Html.TextAreaFor(model => model.Classified.Description, htmlAttributes: new { @class = "form-control", @maxlength = "500", @placeholder = "Give a brief description for your ad here" })
+                    @Html.ValidationMessageFor(model => model.Classified.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Classified.ClassifiedImage, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-xs-6">
+                    <input type="file" name="file" id="uploadPic" />
+                </div>
+            </div>
+            <hr>
+            <h4><label class="col-sm-12 col-xs-12">Your contact details:</label></h4>
+            <div class="form-group ">
+                @Html.LabelFor(model => model.User.ContactName, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(model => model.User.ContactName, htmlAttributes: new { @class = "form-control", @placeholder = "Enter Your name" })
+                    @Html.ValidationMessageFor(model => model.User.ContactName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.User.ContactPhone, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(model => model.User.ContactPhone, htmlAttributes: new { @class = "form-control", @placeholder = "Enter Phone" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.User.ContactCity, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(model => model.User.ContactCity, htmlAttributes: new { @class = "form-control", @placeholder = "Enter Your city" })
+                    @Html.ValidationMessageFor(model => model.User.ContactCity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Classified.ClassifiedPrice, htmlAttributes: new { @class = "control-label col-sm-4" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(model => model.Classified.ClassifiedPrice, htmlAttributes: new { @class = "form-control", @placeholder = "Rs." })
+                    @Html.ValidationMessageFor(model => model.Classified.ClassifiedPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-12">
+                    <input type="submit" id="create-btn" class="btn btn-default btn-success" value="Post Ad" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

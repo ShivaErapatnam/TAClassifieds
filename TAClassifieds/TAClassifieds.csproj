@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClassifiedController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -171,6 +172,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Classified.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\ClassifiedApi.cs" />
     <Compile Include="Models\DAL\TAC_Category.cs">
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
@@ -186,6 +188,9 @@
     <Compile Include="Models\DAL\TAC_User.cs">
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MyAccountClassifieds.cs" />
+    <Compile Include="Models\MyAccountModel.cs" />
+    <Compile Include="Models\PostAdModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +212,10 @@
     </Content>
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Classified\Index.cshtml" />
+    <Content Include="Views\Classified\MyAccount.cshtml" />
+    <Content Include="Views\Classified\PostAd.cshtml" />
+    <Content Include="Views\Classified\ViewDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -216,6 +225,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\images\UploadedImages\" />
+    <Folder Include="Resources\Uploaded_Images\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

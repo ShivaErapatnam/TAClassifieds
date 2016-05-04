@@ -11,12 +11,18 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TAC_ClassifiedContact
     {
         public int ContactId { get; set; }
+        [Required]
+        [DisplayName("Name*")]
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
+        [Required]
+        [DisplayName("City*")]
         public string ContactCity { get; set; }
         public int ClassifiedId { get; set; }
     
