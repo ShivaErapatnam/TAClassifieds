@@ -198,6 +198,7 @@
     <Compile Include="Models\MyAccountClassifieds.cs" />
     <Compile Include="Models\MyAccountModel.cs" />
     <Compile Include="Models\PostAdModel.cs" />
+    <Compile Include="Models\ViewAds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

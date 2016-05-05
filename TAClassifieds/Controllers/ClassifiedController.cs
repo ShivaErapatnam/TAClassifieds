@@ -16,11 +16,45 @@ namespace TAClassifieds.Controllers
         #endregion  
 
         // GET: Classified
-        public ActionResult Index()
+        public ActionResult Index(int? categoryID, int? pageNumber)
         {
-            return View();
+            if (pageNumber == null)
+            {
+                pageNumber = 1;
+            }
+            ViewBag.CategoryId = categoryID;
+            int pageSize = 3;
+            var lstClassifieds = new List<MyAccountClassifieds>();
+            int pagecount = 0;
+
+            if (categoryID == null)
+            {
+                lstClassifieds = ClassifiedApi.GetAllPosts().OrderBy(x => x.PostedDate).Skip(((int)pageNumber - 1) * pageSize).Take((int)pageSize).ToList();
+                pagecount = (int)Math.Ceiling((decimal)ClassifiedApi.GetAllPosts().ToList().Count / (decimal)pageSize);
+                //  var pager = new Pager(ClassifiedApi.GetAllPosts().ToList().Count, pageNumber);
+
+            }
+            else
+            {
+                lstClassifieds = ClassifiedApi.GetAllPosts().Where(x => x.CategoryId == categoryID).OrderBy(x => x.PostedDate).Skip(((int)pageNumber - 1) * pageSize).Take((int)pageSize).ToList();
+                pagecount = (int)Math.Ceiling((decimal)ClassifiedApi.GetAllPosts().Where(x => x.CategoryId == categoryID).ToList().Count / (decimal)pageSize);
+            }
+
+            var model = new ViewAds
+            {
+                pageCount = pagecount,
+                lst = lstClassifieds,
+                lstCategory = ClassifiedApi.GetAllCategory()
+            };
+            return View(model);
         }
-        
+
+        public ActionResult Index1()
+        {
+
+            return View(ClassifiedApi.GetAllPosts());
+        }
+
         // GET: Classified/Create
         public ActionResult PostAd()
         {
@@ -30,7 +64,7 @@ namespace TAClassifieds.Controllers
 
         // POST: Classified/Create
         [HttpPost]
-        public ActionResult PostAd(PostAdModel postAdModel,HttpPostedFileBase fileUpload)
+        public ActionResult PostAd(PostAdModel postAdModel, HttpPostedFileBase fileUpload)
         {
             try
             {
@@ -42,7 +76,7 @@ namespace TAClassifieds.Controllers
                     postAdModel.Classified.CategoryId = 1;
                     //Since Login is not ready, taking a test account
                     postAdModel.Classified.CreatedBy = new Guid("1976511D-DAF5-4F27-BBE0-29305E5C4E99");
-                    
+
 
                     //fileupload logic
                     if (Request.Files.Count > 0)
@@ -60,15 +94,15 @@ namespace TAClassifieds.Controllers
 
                     dbContext.TAC_Classified.Add(postAdModel.Classified);
                     dbContext.SaveChanges();
-                    postAdModel.User.ClassifiedId = postAdModel.Classified.ClassifiedId;                
+                    postAdModel.User.ClassifiedId = postAdModel.Classified.ClassifiedId;
                     dbContext.TAC_ClassifiedContact.Add(postAdModel.User);
                     dbContext.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
             }
-            catch(Exception ex)
-            {                
+            catch (Exception ex)
+            {
             }
             return View();
         }
@@ -83,13 +117,13 @@ namespace TAClassifieds.Controllers
         public ActionResult ViewDetail(int? classifiedId)
         {
             int id;
-            MyAccountClassifieds classified = ClassifiedApi.GetClassifiedById((int.Parse(classifiedId.ToString()) != 0)? int.Parse(classifiedId.ToString()) : 1);
+            MyAccountClassifieds classified = ClassifiedApi.GetClassifiedById((int.Parse(classifiedId.ToString()) != 0) ? int.Parse(classifiedId.ToString()) : 1);
             if (classified != null)
             {
                 return View(classified);
             }
             else return View("MyAccount");
-            
+
         }
     }
 }

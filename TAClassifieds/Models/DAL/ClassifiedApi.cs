@@ -35,7 +35,7 @@ namespace TAClassifieds.Models.DAL
             }
             return lstClassifids;
         }
-             
+
         public static TAC_ClassifiedContact GetContactByClassified(int classifiedId)
         {
             TAC_ClassifiedContact classifiedContact = dbContext.TAC_ClassifiedContact.Where(x => x.ClassifiedId == classifiedId).FirstOrDefault();
@@ -45,7 +45,7 @@ namespace TAClassifieds.Models.DAL
         public static MyAccountClassifieds GetClassifiedById(int classifiedId)
         {
             TAC_Classified classified = new TAC_Classified();
-            if (classifiedId!=0)
+            if (classifiedId != 0)
             {
                 classified = dbContext.TAC_Classified.Where(x => x.ClassifiedId == classifiedId).FirstOrDefault();
                 return new MyAccountClassifieds()
@@ -62,8 +62,14 @@ namespace TAClassifieds.Models.DAL
                     Location = ((GetContactByClassified(classified.ClassifiedId) == null) ? string.Empty : GetContactByClassified(classified.ClassifiedId).ContactCity)
                 };
             }
-            return null;            
+            return null;
         }
-        
+
+        public static List<TAC_Category> GetAllCategory()
+        {
+
+            return dbContext.TAC_Category.ToList();
+        }
+
     }
 }
