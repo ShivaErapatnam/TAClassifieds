@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TAC_Team4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TAC_Team4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TAC_Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -36,6 +36,16 @@
           <Property Name="ContactPhone" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ContactCity" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ClassifiedId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TAC_ContactUs">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Comment" Type="varchar(max)" Nullable="false" />
+          <Property Name="PostedDate" Type="datetime" Nullable="false" />
+          <Property Name="ContactId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="TAC_Country">
           <Key>
@@ -118,6 +128,7 @@
           <EntitySet Name="TAC_Category" EntityType="Self.TAC_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAC_Classified" EntityType="Self.TAC_Classified" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAC_ClassifiedContact" EntityType="Self.TAC_ClassifiedContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAC_ContactUs" EntityType="Self.TAC_ContactUs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAC_Country" EntityType="Self.TAC_Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAC_User" EntityType="Self.TAC_User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__TAC_User__Countr__1A14E395" Association="Self.FK__TAC_User__Countr__1A14E395">
@@ -137,8 +148,7 @@
             <End Role="TAC_ClassifiedContact" EntitySet="TAC_ClassifiedContact" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TAC_Team4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -281,7 +291,18 @@
             <End Role="TAC_Country" EntitySet="TAC_Country" />
             <End Role="TAC_User" EntitySet="TAC_User" />
           </AssociationSet>
+          <EntitySet Name="TAC_ContactUs" EntityType="TAC_Team4Model.TAC_ContactUs" />
         </EntityContainer>
+        <EntityType Name="TAC_ContactUs">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ContactId" Type="Guid" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -351,6 +372,17 @@
                 <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAC_ContactUs">
+            <EntityTypeMapping TypeName="TAC_Team4Model.TAC_ContactUs">
+              <MappingFragment StoreEntitySet="TAC_ContactUs">
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="PostedDate" ColumnName="PostedDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

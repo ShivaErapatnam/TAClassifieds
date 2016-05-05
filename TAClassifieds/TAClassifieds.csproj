@@ -153,6 +153,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClassifiedController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,12 +185,16 @@
     <Compile Include="Models\DAL\TAC_ClassifiedContact.cs">
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\TAC_ContactUs.cs">
+      <DependentUpon>Classified.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DAL\TAC_Country.cs">
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\TAC_User.cs">
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MyAccountClassifieds.cs" />
     <Compile Include="Models\MyAccountModel.cs" />
     <Compile Include="Models\PostAdModel.cs" />
@@ -216,6 +223,9 @@
     <Content Include="Views\Classified\MyAccount.cshtml" />
     <Content Include="Views\Classified\PostAd.cshtml" />
     <Content Include="Views\Classified\ViewDetail.cshtml" />
+    <Content Include="Views\Contact\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -11,15 +11,17 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class TAC_ClassifiedContact
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class TAC_ContactUs
     {
-        public int ContactId { get; set; }
-        public string ContactName { get; set; }
-        public string ContactPhone { get; set; }
-        public string ContactCity { get; set; }
-        public int ClassifiedId { get; set; }
-    
-        public virtual TAC_Classified TAC_Classified { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Comment { get; set; }
+        public System.DateTime PostedDate { get; set; }
+        public System.Guid ContactId { get; set; }
     }
 }

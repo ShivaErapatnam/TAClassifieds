@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Training\TAClassfieds\TAClassifieds\TAClassifieds\Models\DAL\Classified.edmx'. 
+﻿// T4 code generation is enabled for model 'F:\Projects\SourceCode\TA Internal MVC\TAClassifieds\TAClassifieds\Models\DAL\Classified.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -10,7 +10,7 @@
     <link href="@Url.Content("~/Resources/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Resources/css/classifiedStyles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Resources/css/jquery-ui.css")" rel="stylesheet" type="text/css" />
- 
+
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         <div class="jumbotron">
             <div class="col-sm-4 col-lg-4 col-xs-10">
                 <img src="../Resources/images/company_logo.png" class="img-responsive">
-                <!--<img src="../Resources/images/logo.png" width="585" height="150"> -->
+                <!--<img src="../Code/images/logo.png" width="585" height="150"> -->
             </div>
             <div class="col-sm-6 col-lg-2 col-xs-4 hidden-xs pull-right header-div">
                 <h2 class="title">Classifieds</h2>
@@ -39,31 +39,43 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav nav-right">
                     <li class="active">
-                        <a href="/Classified/"><span class="glyphicon glyphicon-home" /> Home</a>
+                        @Html.ActionLink(" Home", "Index", "Home", null, new { @class = "glyphicon glyphicon-home" })
                     </li>
                     <li>
-                        <a href="/Classified/PostAd"><span class="glyphicon glyphicon-tasks alt" /> Post Ad</a>
+                        @Html.ActionLink(" Post Ad", "Index", "Home", null, new { @class = "glyphicon glyphicon-tasks alt" })
                     </li>
-                    <li><a href="login.html"><span class="glyphicon glyphicon-user"> Login</a></li>
+                    @if (Session["User"] == null)
+                    {
+                        <li>
+                            @Html.ActionLink(" Login", "Login", "Login", null, new { @class = "glyphicon glyphicon-user" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(" Logout", "Logout", "Login", null, new { @class = "glyphicon glyphicon-user" })
+                        </li>
+
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/Classified/MyAccount"><span class="glyphicon glyphicon-user" /> MyAccount</a>
+                        @Html.ActionLink(" MyAccount", "Index", "Home", null, new { @class = "glyphicon glyphicon-user" })
                     </li>
                     <li>
-                        <a href="contactus.html"><span class="glyphicon glyphicon-earphone" /> Contact Us</a>
+                        @Html.ActionLink(" Contact Us", "Contact", "Contact", null, new { @class = "glyphicon glyphicon-earphone" })
                     </li>
                 </ul>
             </div>
         </nav>
-        
         @RenderBody()
     </div>
     <footer class="container text-center">
         <p>2016 @@Techaspect Solutions</p>
-    </footer>  
+    </footer>
+    <script src="@Url.Content("~/Resources/js/jquery.min.js")"></script>
+
     <script src="@Url.Content("~/Resources/js/bootstrap.min.js")"></script>
-    <script src="@Url.Content("~/Resources/js/jquery.min.js")"></script> 
     <script>
         $(document).ready(function () {
             $(".image-box").on("click", function (event) {

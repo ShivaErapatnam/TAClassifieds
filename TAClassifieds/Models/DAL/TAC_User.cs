@@ -11,34 +11,23 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class TAC_User
     {
         public System.Guid UserId { get; set; }
-
-        [Required]
+        [Required]        
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail adress")]
         public string Email { get; set; }
-
         [Required]
-        [DisplayName("Password*")]
+        [Display(Name = "Password")]
         public string UPassword { get; set; }
-
-        [Required]
-        [DisplayName("Repeat Password*")]
-        public string RepeatPassword { get; set; }
-
-        [Required]
-        [DisplayName("Name")]
         public string First_Name { get; set; }
-
         public string Last_Name { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
-        [Required]
         public string City { get; set; }
         public string State { get; set; }
         public Nullable<int> Country { get; set; }
@@ -47,10 +36,8 @@ namespace TAClassifieds.Models.DAL
         public Nullable<bool> IsLocked { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-
+    
         public virtual TAC_Country TAC_Country { get; set; }
         public virtual TAC_Country TAC_Country1 { get; set; }
-        [DisplayName("I accept all the terms and conditions")]
-        public bool TermsAndConditions { get; set; }
     }
 }
