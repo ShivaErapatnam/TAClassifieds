@@ -54,7 +54,7 @@ namespace TAClassifieds.Models.DAL
         public virtual TAC_Country TAC_Country { get; set; }
         public virtual TAC_Country TAC_Country1 { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.Password)]
         [Display(Name = "Repeat Password*")]
         public string RepeatPassword { get; set; }
@@ -62,7 +62,6 @@ namespace TAClassifieds.Models.DAL
         [Required]
         [Display(Name = "Terms and Conditions")]
         public bool TermsAndConditions { get; set; }
-
 
         [Display(Name = "Error Message")]
         public string ErrorMessage { get; set; }

@@ -6,16 +6,21 @@ using TAClassifieds.Models.DAL;
 using System.Data;
 using System;
 using System.Web;
+using System.Collections.Generic;
 
 namespace TAClassifieds.Controllers
 {
     public class LoginController : Controller
     {
         TAC_Team4Entities db = new TAC_Team4Entities();
-        static int count = 0;
+        int count = 0;
+
+        public Dictionary<string, int> usersList = new Dictionary<string, int>();
+
         // GET: Login
         public ActionResult Login()
         {
+            Session["LockEmailList"] = usersList;
             return View(checkCookie());
         }
 
@@ -24,34 +29,63 @@ namespace TAClassifieds.Controllers
         {
             #region To Lock Acccout if more than 3 wrong passwords are entered
 
-            HttpCookie chkLock = new HttpCookie("lock");
-            chkLock.Expires = DateTime.Now.AddSeconds(3600);
-            chkLock.Value = count.ToString();
-            Response.Cookies.Add(chkLock);
-
-            HttpCookie enteredEmail = new HttpCookie("newEmail");
-            enteredEmail.Expires = DateTime.Now.AddSeconds(3600);
-            enteredEmail.Value = model.Email;
-            Response.Cookies.Add(enteredEmail);
-
-            if (Request.Cookies["lock"] != null)
+            Dictionary<string, int> myDictionary = (Dictionary<string, int>)Session["LockEmailList"];
+            if (Session["LockEmailList"] != null)
             {
-                string actualPassword = db.TAC_User.ToList().Where(x => x.Email.Equals(model.Email)).FirstOrDefault().UPassword;
-                if (!model.UPassword.Equals(actualPassword) && model.Email.Equals(enteredEmail.Value))
-                    count++;
-                chkLock.Value = count.ToString();
+                if (!myDictionary.ContainsKey(model.Email))
+                {
+                    myDictionary.Add(model.Email, 0);
+                }
+                else
+                {
+                    string actualPassword = db.TAC_User.ToList().Where(x => x.Email.Equals(model.Email)).FirstOrDefault().UPassword;
+                    if (!model.UPassword.Equals(actualPassword) && myDictionary.ContainsKey(model.Email))
+                    {
+                        count = myDictionary[model.Email];
+                        count++;
+                        myDictionary[model.Email] = count;
+                    }
+                }
+                Session["LockEmailList"] = myDictionary;
             }
 
-            if (count >= 3)
+            #region lock account using cookie
+
+            //var list = usersList.ToList().Where(x => x.StringData.Equals(model.Email));
+            //if (!model.UPassword.Equals(actualPassword))
+            //    count++;
+
+            //HttpCookie chkLock = new HttpCookie("lock");
+            //chkLock.Expires = DateTime.Now.AddSeconds(3600);
+            //chkLock.Value = count.ToString();
+            //Response.Cookies.Add(chkLock);
+
+            //HttpCookie enteredEmail = new HttpCookie("newEmail");
+            //enteredEmail.Expires = DateTime.Now.AddSeconds(3600);
+            //enteredEmail.Value = model.Email;
+            //Response.Cookies.Add(enteredEmail);
+
+            //if (Request.Cookies["lock"] != null)
+            //{
+            //    string actualPassword = db.TAC_User.ToList().Where(x => x.Email.Equals(model.Email)).FirstOrDefault().UPassword;
+            //    if (!model.UPassword.Equals(actualPassword) && model.Email.Equals(enteredEmail.Value))
+            //        count++;
+            //    chkLock.Value = count.ToString();
+            //}
+
+            #endregion
+
+            if (myDictionary[model.Email] >= 3)
             {
                 Guid id = db.TAC_User.ToList().Where(x => x.Email.Equals(model.Email)).FirstOrDefault().UserId;
                 var record = db.TAC_User.Find(id);
                 record.IsLocked = true;
+                db.TAC_User.Attach(record);
                 db.Entry(record).Property(e => e.IsLocked).IsModified = true; ;
                 db.SaveChanges();
             }
             #endregion
-
+            
             var element = db.TAC_User.ToList().Where(
                 x => x.Email.Equals(model.Email) &&
                 x.UPassword.Equals(model.UPassword)).FirstOrDefault();
@@ -107,7 +141,6 @@ namespace TAClassifieds.Controllers
                         }
                     }
                     #endregion
-
                     Response.Redirect("/Home/Index");
                 }
             }
