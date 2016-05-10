@@ -10,6 +10,7 @@ using TAClassifieds.Models.DAL;
 
 namespace TAClassifieds.Controllers
 {
+    //[Authorize]
     public class AdminController : Controller
     {
         private TAC_Team4Entities db = new TAC_Team4Entities();

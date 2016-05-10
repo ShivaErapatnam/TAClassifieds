@@ -13,7 +13,7 @@
 
 
             <div class="col-sm-3">
-                <a href="@Url.Action("Index","Classified",  new { categoryID = item.CategoryId })" title="Register Your ID" , rel="nofollow">
+                <a href="@Url.Action("Index","Home",  new { categoryID = item.CategoryId })" title="Register Your ID" , rel="nofollow">
                     <img src="@item.CategoryImage" class="image-box" width="180px" height="150px" id="@item.CategoryName" />
                 </a>
                 @*<a href="#">
@@ -56,7 +56,7 @@
             @for (int page = 1; page <= Model.pageCount; page++)
             {
 
-                <li><a href="@Url.Action("Index","Classified",new { pageNumber= page, categoryID=ViewBag.CategoryId })">@page.ToString()</a></li>
+                <li><a href="@Url.Action("Index","Home",new { pageNumber= page, categoryID=ViewBag.CategoryId })">@page.ToString()</a></li>
 
 
             }

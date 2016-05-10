@@ -75,6 +75,7 @@
           <Property Name="IsLocked" Type="bit" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsAdmin" Type="bit" />
         </EntityType>
         <Association Name="FK__TAC_User__Countr__1A14E395">
           <End Role="TAC_Country" Type="Self.TAC_Country" Multiplicity="0..1" />
@@ -220,6 +221,7 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TAC_Country" Relationship="Self.FK__TAC_User__Countr__1A14E395" FromRole="TAC_User" ToRole="TAC_Country" />
           <NavigationProperty Name="TAC_Country1" Relationship="Self.FK__TAC_User__Countr__1FCDBCEB" FromRole="TAC_User" ToRole="TAC_Country" />
+          <Property Name="IsAdmin" Type="Boolean" />
         </EntityType>
         <Association Name="FK_TAC_Classified_TAC_Classified">
           <End Role="TAC_Category" Type="Self.TAC_Category" Multiplicity="1" />
@@ -355,6 +357,7 @@
           <EntitySetMapping Name="TAC_User">
             <EntityTypeMapping TypeName="TAC_Team4Model.TAC_User">
               <MappingFragment StoreEntitySet="TAC_User">
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UPassword" ColumnName="UPassword" />

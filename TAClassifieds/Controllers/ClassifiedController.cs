@@ -9,6 +9,7 @@ using TAClassifieds.Models.DAL;
 
 namespace TAClassifieds.Controllers
 {
+    //[Authorize]
     public class ClassifiedController : Controller
     {
         #region Global Variables

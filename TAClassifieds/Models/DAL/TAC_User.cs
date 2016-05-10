@@ -50,7 +50,7 @@ namespace TAClassifieds.Models.DAL
         public Nullable<bool> IsLocked { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-
+        public Nullable<bool> IsAdmin { get; set; }
         public virtual TAC_Country TAC_Country { get; set; }
         public virtual TAC_Country TAC_Country1 { get; set; }
 

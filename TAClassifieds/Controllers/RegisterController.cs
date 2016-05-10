@@ -29,7 +29,9 @@ namespace TAClassifieds.Controllers
                     if ((list.Where(x => x.Email.Equals(user.Email)).Count() <= 0))
                     {
                         user.UserId = Guid.NewGuid();
-
+                        user.IsAdmin = false;
+                        user.IsActive = true;
+                        user.IsLocked = false;
                         user.CreatedDate = DateTime.Now;
                         db.TAC_User.Add(user);
                         db.SaveChanges();
@@ -38,7 +40,7 @@ namespace TAClassifieds.Controllers
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = "User Name already Exist. Please try other user name";
+                        ViewBag.ErrorMessage = "Email ID already exists. Please try another one.";
                         //ViewBag.ErrorMessage.ForeColor = System.Drawing.Color.Red;
                     }
 
@@ -104,7 +106,7 @@ namespace TAClassifieds.Controllers
                     var entry = db.Entry(CurrentUser);
                     entry.Property(e => e.IsVerified).IsModified = true;
                     db.SaveChanges();
-                    return RedirectToAction("Register", "Register");
+                    return RedirectToAction("Login", "Login");
 
                 }
             }

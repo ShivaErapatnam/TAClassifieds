@@ -85,7 +85,7 @@ namespace TAClassifieds.Controllers
                 db.SaveChanges();
             }
             #endregion
-            
+
             var element = db.TAC_User.ToList().Where(
                 x => x.Email.Equals(model.Email) &&
                 x.UPassword.Equals(model.UPassword)).FirstOrDefault();
@@ -141,7 +141,14 @@ namespace TAClassifieds.Controllers
                         }
                     }
                     #endregion
-                    Response.Redirect("/Home/Index");
+                    if (record1.IsAdmin == true)
+                    {
+                        Response.Redirect("/Admin/Index");
+                    }
+                    else
+                    {
+                        Response.Redirect("/Home/Index");
+                    }
                 }
             }
             else
