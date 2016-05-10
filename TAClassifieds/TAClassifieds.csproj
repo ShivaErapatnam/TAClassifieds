@@ -220,7 +220,6 @@
     </Content>
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Classified\Index.cshtml" />
     <Content Include="Views\Classified\MyAccount.cshtml" />
     <Content Include="Views\Classified\PostAd.cshtml" />
     <Content Include="Views\Classified\ViewDetail.cshtml" />

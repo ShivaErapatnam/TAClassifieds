@@ -34,7 +34,7 @@ namespace TAClassifieds.Controllers
                         db.TAC_User.Add(user);
                         db.SaveChanges();
                         SendMail(user);
-                        return RedirectToAction("Register", "Register");
+                        return RedirectToAction("Login", "Login");
                     }
                     else
                     {

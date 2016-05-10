@@ -42,7 +42,7 @@
                         @Html.ActionLink(" Home", "Index", "Home", null, new { @class = "glyphicon glyphicon-home" })
                     </li>
                     <li>
-                        @Html.ActionLink(" Post Ad", "Index", "Home", null, new { @class = "glyphicon glyphicon-tasks alt" })
+                        @Html.ActionLink(" Post Ad", "PostAd", "Classified", null, new { @class = "glyphicon glyphicon-tasks alt" })
                     </li>
                     @if (Session["User"] == null)
                     {
@@ -60,7 +60,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        @Html.ActionLink(" MyAccount", "Index", "Home", null, new { @class = "glyphicon glyphicon-user" })
+                        @Html.ActionLink(" My Account", "MyAccount", "Classified", null, new { @class = "glyphicon glyphicon-user" })
                     </li>
                     <li>
                         @Html.ActionLink(" Contact Us", "Contact", "Contact", null, new { @class = "glyphicon glyphicon-earphone" })

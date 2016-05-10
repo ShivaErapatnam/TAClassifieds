@@ -16,44 +16,16 @@ namespace TAClassifieds.Controllers
         #endregion  
 
         // GET: Classified
-        public ActionResult Index(int? categoryID, int? pageNumber)
+        public ActionResult Index()
         {
-            if (pageNumber == null)
-            {
-                pageNumber = 1;
-            }
-            ViewBag.CategoryId = categoryID;
-            int pageSize = 3;
-            var lstClassifieds = new List<MyAccountClassifieds>();
-            int pagecount = 0;
-
-            if (categoryID == null)
-            {
-                lstClassifieds = ClassifiedApi.GetAllPosts().OrderBy(x => x.PostedDate).Skip(((int)pageNumber - 1) * pageSize).Take((int)pageSize).ToList();
-                pagecount = (int)Math.Ceiling((decimal)ClassifiedApi.GetAllPosts().ToList().Count / (decimal)pageSize);
-                //  var pager = new Pager(ClassifiedApi.GetAllPosts().ToList().Count, pageNumber);
-
-            }
-            else
-            {
-                lstClassifieds = ClassifiedApi.GetAllPosts().Where(x => x.CategoryId == categoryID).OrderBy(x => x.PostedDate).Skip(((int)pageNumber - 1) * pageSize).Take((int)pageSize).ToList();
-                pagecount = (int)Math.Ceiling((decimal)ClassifiedApi.GetAllPosts().Where(x => x.CategoryId == categoryID).ToList().Count / (decimal)pageSize);
-            }
-
-            var model = new ViewAds
-            {
-                pageCount = pagecount,
-                lst = lstClassifieds,
-                lstCategory = ClassifiedApi.GetAllCategory()
-            };
-            return View(model);
+            return View();
         }
 
-        public ActionResult Index1()
-        {
+        //public ActionResult Index1()
+        //{
 
-            return View(ClassifiedApi.GetAllPosts());
-        }
+        //    return View(ClassifiedApi.GetAllPosts());
+        //}
 
         // GET: Classified/Create
         public ActionResult PostAd()
