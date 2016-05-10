@@ -8,7 +8,7 @@ using TAClassifieds.Models.DAL;
 
 namespace TAClassifieds.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Home

@@ -141,13 +141,25 @@ namespace TAClassifieds.Controllers
                         }
                     }
                     #endregion
-                    if (record1.IsAdmin == true)
+                    // Success, create non-persistent authentication cookie.
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                    FormsAuthenticationTicket ticket1 = new FormsAuthenticationTicket(model.Email, false, 10);
+                    HttpCookie cookie1 = new HttpCookie(
+                      FormsAuthentication.FormsCookieName,
+                      FormsAuthentication.Encrypt(ticket1));
+                    Response.Cookies.Add(cookie1);
+
+                    if (Request.QueryString["ReturnUrl"] == null && record1.IsAdmin == true)
                     {
                         Response.Redirect("/Admin/Index");
                     }
-                    else
+                    else if (Request.QueryString["ReturnUrl"] == null && record1.IsAdmin == false)
                     {
                         Response.Redirect("/Home/Index");
+                    }
+                    else
+                    {
+                        Response.Redirect("/Login/Login");
                     }
                 }
             }
