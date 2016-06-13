@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Microsoft.AspNet.Membership.OpenAuth.ProviderDetails>
+
+<div class="col-sm-offset-1 col-sm-10">
+    @*<a href="#"><button class="google"><span><img src="~/Resources/images/gmail.png" width="40px" height="40px"> Continue with Google+</span></button></a> &nbsp &nbsp
+        <a href="#"><button class="facebook"><span><img src="~/Resources/images/fb.png" width="40px" height="40px"> Continue with Facebook</span></button></a>*@
+
+    @foreach (var item in Model)
+    {
+        @*<a href="#">
+            <button class="@item.ProviderName">
+                <span>
+                    <img src="~/Resources/images/fb.png" width="40px" height="40px">
+                    Continue with "@item.ProviderDisplayName
+                </span>
+            </button>
+        </a>*@
+
+        @Html.ActionLink("Continue with " + @item.ProviderDisplayName, "FBLogin", "Login", null, new { @class = "facebook" })
+        <a href="@Url.Action("","")"><button class="google"><span><img src="~/Resources/images/gmail.png" width="40px" height="40px"> Continue with Google+</span></button></a>
+    }
+</div>
+
+@*@foreach (var p in Model)
+    {
+        <img src="@p.ExtraData["Icon"]" alt="Icon for @p.DisplayName" />
+    }*@

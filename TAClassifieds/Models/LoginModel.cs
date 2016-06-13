@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Membership.OpenAuth;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,5 +15,10 @@ namespace TAClassifieds.Models
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
+
+        public IEnumerable<ProviderDetails> GetProviderNames()
+        {
+            return OpenAuth.AuthenticationClients.GetAll();
+        }
     }
 }

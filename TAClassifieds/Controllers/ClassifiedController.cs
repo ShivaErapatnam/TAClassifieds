@@ -29,9 +29,9 @@ namespace TAClassifieds.Controllers
         //}
 
         // GET: Classified/Create
-        public ActionResult PostAd()
+        public ActionResult PostAd(int? categoryID)
         {
-            ViewBag.ReturnUrl = "/Classified/Index";
+            Session["categoryID"] = categoryID;
             return View();
         }
 
@@ -46,9 +46,10 @@ namespace TAClassifieds.Controllers
                     postAdModel.Classified.Summary = postAdModel.Classified.Description;
                     postAdModel.Classified.PostedDate = DateTime.Now;
                     //Category is hardcoded as of now
-                    postAdModel.Classified.CategoryId = 1;
+                    postAdModel.Classified.CategoryId = (int)Session["categoryID"];
                     //Since Login is not ready, taking a test account
-                    postAdModel.Classified.CreatedBy = new Guid("1976511D-DAF5-4F27-BBE0-29305E5C4E99");
+                    TAC_User model = (TAC_User)Session["User"];
+                    postAdModel.Classified.CreatedBy = model.UserId;
 
 
                     //fileupload logic
@@ -71,7 +72,7 @@ namespace TAClassifieds.Controllers
                     dbContext.TAC_ClassifiedContact.Add(postAdModel.User);
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PostAd");
                 }
             }
             catch (Exception ex)
@@ -97,6 +98,12 @@ namespace TAClassifieds.Controllers
             }
             else return View("MyAccount");
 
+        }
+
+        public ActionResult CategoriesList()
+        {
+            IEnumerable<TAC_Category> model = dbContext.TAC_Category;
+            return PartialView("_CategoriesList", model);
         }
     }
 }

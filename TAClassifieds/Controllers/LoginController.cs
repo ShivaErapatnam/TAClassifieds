@@ -7,6 +7,8 @@ using System.Data;
 using System;
 using System.Web;
 using System.Collections.Generic;
+using Microsoft.AspNet.Membership.OpenAuth;
+using Microsoft.Web.WebPages.OAuth;
 
 namespace TAClassifieds.Controllers
 {
@@ -110,7 +112,7 @@ namespace TAClassifieds.Controllers
                 }
                 else
                 {
-                    Session["User"] = model;
+                    Session["User"] = element;
                     #region Code for "Remember me" checkbox
 
                     HttpCookie chkEmail = new HttpCookie("email");
@@ -143,7 +145,7 @@ namespace TAClassifieds.Controllers
                     #endregion
                     // Success, create non-persistent authentication cookie.
                     FormsAuthentication.SetAuthCookie(model.Email, false);
-                    FormsAuthenticationTicket ticket1 = new FormsAuthenticationTicket(model.Email, false, 10);
+                    FormsAuthenticationTicket ticket1 = new FormsAuthenticationTicket(1, model.Email, DateTime.Now, DateTime.Now.AddMinutes(5), false, "UserData");
                     HttpCookie cookie1 = new HttpCookie(
                       FormsAuthentication.FormsCookieName,
                       FormsAuthentication.Encrypt(ticket1));
@@ -187,6 +189,16 @@ namespace TAClassifieds.Controllers
                 l = new LoginModel { Email = email, UPassword = pwd };
 
             return l;
+        }
+        public ActionResult ExternalLogin()
+        {           
+            AuthConfig.RegisterAuth();
+            IEnumerable<ProviderDetails> model = OpenAuth.AuthenticationClients.GetAll();
+            return PartialView("_ExternalLogin", model);
+        }
+        public void FBLogin()
+        {
+
         }
     }
 }
