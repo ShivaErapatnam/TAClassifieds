@@ -7,8 +7,8 @@ using System.Data;
 using System;
 using System.Web;
 using System.Collections.Generic;
-using Microsoft.AspNet.Membership.OpenAuth;
-using Microsoft.Web.WebPages.OAuth;
+//using Microsoft.AspNet.Membership.OpenAuth;
+//using Microsoft.Web.WebPages.OAuth;
 
 namespace TAClassifieds.Controllers
 {
@@ -190,15 +190,15 @@ namespace TAClassifieds.Controllers
 
             return l;
         }
-        public ActionResult ExternalLogin()
-        {           
-            AuthConfig.RegisterAuth();
-            IEnumerable<ProviderDetails> model = OpenAuth.AuthenticationClients.GetAll();
-            return PartialView("_ExternalLogin", model);
-        }
-        public void FBLogin()
-        {
+        //public ActionResult ExternalLogin()
+        //{           
+        //    AuthConfig.RegisterAuth();
+        //    IEnumerable<ProviderDetails> model = OpenAuth.AuthenticationClients.GetAll();
+        //    return PartialView("_ExternalLogin", model);
+        //}
+        //public void FBLogin()
+        //{
 
-        }
+        //}
     }
 }

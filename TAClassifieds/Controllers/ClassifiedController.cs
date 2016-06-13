@@ -45,9 +45,7 @@ namespace TAClassifieds.Controllers
                 {
                     postAdModel.Classified.Summary = postAdModel.Classified.Description;
                     postAdModel.Classified.PostedDate = DateTime.Now;
-                    //Category is hardcoded as of now
                     postAdModel.Classified.CategoryId = (int)Session["categoryID"];
-                    //Since Login is not ready, taking a test account
                     TAC_User model = (TAC_User)Session["User"];
                     postAdModel.Classified.CreatedBy = model.UserId;
 

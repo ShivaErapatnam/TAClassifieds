@@ -28,9 +28,9 @@ namespace TAClassifieds
 
             //OAuthWebSecurity.RegisterGoogleClient();
 
-            //OpenAuth.AuthenticationClients.AddFacebook(
-            //    appId: "109703303033517",
-            //    appSecret: "3e89661f786583061958f203c5d87af8");
+            OpenAuth.AuthenticationClients.AddFacebook(
+                appId: "109703303033517",
+                appSecret: "3e89661f786583061958f203c5d87af8");
 
             //Dictionary<string, object> FacebooksocialData = new Dictionary<string, object>();
             //FacebooksocialData.Add("Icon", "~?Resources/images/fb.png");
