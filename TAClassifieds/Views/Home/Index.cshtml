@@ -46,7 +46,7 @@
 
         </table>
         <ul class="pagination pull-right">
-            <li><a href="#">&laquo;</a></li>
+            <li><a href="@Url.Action("Index","Home",new { pageNumber= Model.prevButton, categoryID=ViewBag.CategoryId })">&laquo;</a></li>
             @for (int page = 1; page <= Model.pageCount; page++)
             {
 
@@ -54,7 +54,7 @@
 
 
             }
-            <li><a href="#">&raquo;</a></li>
+            <li><a href="@Url.Action("Index","Home",new { pageNumber= Model.nextButton, categoryID=ViewBag.CategoryId })">&raquo;</a></li>
 
         </ul>
     </div>

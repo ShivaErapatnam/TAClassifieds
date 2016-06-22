@@ -40,13 +40,13 @@
 
         </table>
         <ul class="pagination pull-right">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
+            <li><a href="@Url.Action("MyAccount","Classified",new { pageNumber= @Model.prevButton, categoryID=ViewBag.CategoryId })">&laquo;</a></li>
+            @for (int page = 1; page <= Model.pageCount; page++)
+            {
+            <li><a href="@Url.Action("MyAccount","Classified",new { pageNumber= page, categoryID=ViewBag.CategoryId })">@page.ToString()</a></li>
+            }
+            <li><a href="@Url.Action("MyAccount","Classified",new { pageNumber= @Model.nextButton, categoryID=ViewBag.CategoryId })">&raquo;</a></li>
+
         </ul>
     </div>
 </div>

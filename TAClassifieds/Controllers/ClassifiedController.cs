@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TAClassifieds.Models.DAL;
+using NLog;
 
 namespace TAClassifieds.Controllers
 {
@@ -14,6 +15,7 @@ namespace TAClassifieds.Controllers
     {
         #region Global Variables
         TAC_Team4Entities dbContext = new TAC_Team4Entities();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         #endregion  
 
         // GET: Classified
@@ -45,11 +47,21 @@ namespace TAClassifieds.Controllers
                 {
                     postAdModel.Classified.Summary = postAdModel.Classified.Description;
                     postAdModel.Classified.PostedDate = DateTime.Now;
-                    postAdModel.Classified.CategoryId = (int)Session["categoryID"];
-                    TAC_User model = (TAC_User)Session["User"];
-                    postAdModel.Classified.CreatedBy = model.UserId;
-
-
+                    if (Session["User"] != null)
+                    {
+                        TAC_User model = (TAC_User)Session["User"];
+                        postAdModel.Classified.CreatedBy = model.UserId;
+                    }
+                    else return View();
+                    if (Session["categoryID"] != null)
+                    {
+                        postAdModel.Classified.CategoryId = (int)Session["categoryID"];
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CategoryId", "Please select category");
+                        return View(model: postAdModel);
+                    }
                     //fileupload logic
                     if (Request.Files.Count > 0)
                     {
@@ -79,11 +91,100 @@ namespace TAClassifieds.Controllers
             return View();
         }
 
-        public ActionResult MyAccount()
+        public ActionResult MyAccount(int? categoryID, int? pageNumber)
         {
+            Logs();
             MyAccountModel myAccountModel = new MyAccountModel();
-            myAccountModel.myAccountClassifieds = ClassifiedApi.GetAllPosts();
+            TAC_User model = new TAC_User();
+            if (Session["User"] != null)
+            {
+                model = (TAC_User)Session["User"];
+            }
+            else
+            {
+                ModelState.AddModelError("User", "Please Login to continue");
+                return View(); }
+            
+            int totalPageCount = 0;
+            myAccountModel.nextButton = 2;
+            myAccountModel.prevButton = 1;
+
+            ViewBag.CategoryId = categoryID;
+            int pageSize = 3;
+            var lstClassifieds = new List<MyAccountClassifieds>();
+            int pagecount = 0;
+            if (pageNumber == null || pageNumber == 1)
+            {
+                pageNumber = 1;
+                myAccountModel.nextButton = 2; myAccountModel.prevButton = 1;
+            }
+            if (categoryID == null)
+            {
+                lstClassifieds = GetMyAccountClassifiedFromPosts(ClassifiedApi.GetAllPosts().Where(x => x.CreatedBy.ToString().ToLower() == model.UserId.ToString().ToLower()).ToList()).OrderBy(x => x.PostedDate).Skip(((int)pageNumber - 1) * pageSize).Take((int)pageSize).ToList();
+                pagecount = (int)Math.Ceiling((decimal)ClassifiedApi.GetAllPosts().Where(x => x.CreatedBy.ToString().ToLower() == model.UserId.ToString().ToLower()).ToList().Count / (decimal)pageSize);
+            }
+            else
+            {
+                lstClassifieds = GetMyAccountClassifiedFromPosts(ClassifiedApi.GetAllPosts().Where(x => x.CreatedBy.ToString().ToLower() == model.UserId.ToString().ToLower()).ToList()).Where(x => x.CategoryId == categoryID).OrderBy(x => x.PostedDate).Skip(((int)pageNumber - 1) * pageSize).Take((int)pageSize).ToList();
+                pagecount = (int)Math.Ceiling((decimal)ClassifiedApi.GetAllPosts().Where(x => x.CreatedBy.ToString().ToLower() == model.UserId.ToString().ToLower()).ToList().Where(x => x.CategoryId == categoryID).ToList().Count / (decimal)pageSize);
+            }
+            //if (lstClassifieds.Count % 3 == 0)
+            //{
+            //    totalPageCount = lstClassifieds.Count / 3;
+            //}
+            //else
+            //{
+            //    totalPageCount = (lstClassifieds.Count / 3) + 1;
+            //}
+                      
+            if (pageNumber == pagecount)
+            {
+                myAccountModel.nextButton = pagecount;
+                if (pagecount == 1) myAccountModel.prevButton = 1;
+                else myAccountModel.prevButton = Convert.ToInt32(pageNumber) - 1;
+            }
+            else
+            {
+                myAccountModel.nextButton = Convert.ToInt32(pageNumber) + 1;
+                if (pageNumber == 1)
+                {
+                    myAccountModel.prevButton = Convert.ToInt32(pageNumber);
+                }
+                else
+                {
+                    myAccountModel.prevButton = Convert.ToInt32(pageNumber) - 1;
+                }
+                
+            }
+              
+                                    
+            myAccountModel.myAccountClassifieds = lstClassifieds;
+            myAccountModel.pageCount = pagecount;
+            myAccountModel.lstCategory = ClassifiedApi.GetAllCategory();
             return View(myAccountModel);
+        }
+
+        public List<MyAccountClassifieds> GetMyAccountClassifiedFromPosts(List<TAC_Classified> lstTAcClassified)
+        {
+            List<MyAccountClassifieds> lstClassifieds = new List<MyAccountClassifieds>();
+            foreach (var item in lstTAcClassified)
+            {
+
+                lstClassifieds.Add(new MyAccountClassifieds()
+                {
+                    CategoryId = item.CategoryId,
+                    ClassifiedId = item.ClassifiedId,
+                    ClassifiedImage = item.ClassifiedImage,
+                    ClassifiedPrice = item.ClassifiedPrice,
+                    ClassifiedTitle = item.ClassifiedTitle,
+                    CreatedBy = item.CreatedBy,
+                    Description = item.Description,
+                    PostedDate = item.PostedDate,
+                    Summary = item.Summary,
+                    Location = ((ClassifiedApi.GetContactByClassified(item.ClassifiedId) == null) ? string.Empty : ClassifiedApi.GetContactByClassified(item.ClassifiedId).ContactCity)
+                });
+            }
+            return lstClassifieds;
         }
 
         public ActionResult ViewDetail(int? classifiedId)
@@ -102,6 +203,20 @@ namespace TAClassifieds.Controllers
         {
             IEnumerable<TAC_Category> model = dbContext.TAC_Category;
             return PartialView("_CategoriesList", model);
+        }
+
+        public void Logs()
+        {
+            int k = 42;
+            int l = 100;
+
+            logger.Trace("Sample trace message, k={0}, l={1}", k, l);
+            logger.Debug("Sample debug message, k={0}, l={1}", k, l);
+            logger.Info("Sample informational message, k={0}, l={1}", k, l);
+            logger.Warn("Sample warning message, k={0}, l={1}", k, l);
+            logger.Error("Sample error message, k={0}, l={1}", k, l);
+            logger.Fatal("Sample fatal error message, k={0}, l={1}", k, l);
+            logger.Log(LogLevel.Info, "Sample informational message, k={0}, l={1}", k, l);
         }
     }
 }
