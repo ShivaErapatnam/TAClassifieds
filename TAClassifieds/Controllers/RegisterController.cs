@@ -58,7 +58,7 @@ namespace TAClassifieds.Controllers
         {
             try
             {
-                MailMessage mailMessage = new MailMessage("thechampishereskp@gmail.com", user.Email);
+                MailMessage mailMessage = new MailMessage("shivaerapatnam@gmail.com", user.Email);
 
 
                 // StringBuilder class is present in System.Text namespace
@@ -78,8 +78,8 @@ namespace TAClassifieds.Controllers
 
                 smtpClient.Credentials = new System.Net.NetworkCredential()
                 {
-                    UserName = "thechampishereskp@gmail.com",
-                    Password = "johncena123"
+                    UserName = "shivaerapatnam@gmail.com",
+                    Password = "Shiva@123"
                 };
 
                 smtpClient.EnableSsl = true;

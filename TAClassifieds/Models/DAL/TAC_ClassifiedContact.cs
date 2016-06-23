@@ -11,12 +11,23 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TAC_ClassifiedContact
     {
         public int ContactId { get; set; }
+
+        [Required]
+        [Display(Name = "Contact Name*")]
         public string ContactName { get; set; }
+
+        [Required]
+        [RegularExpression(@"^((\+\d{1,3}[- ]?)?\d{10})$",ErrorMessage = "Please enter a valid mobile number.")]
+        [Display(Name = "Contact Phone No.*")]
         public string ContactPhone { get; set; }
+
+        [Required]
+        [Display(Name = "Contact City*")]
         public string ContactCity { get; set; }
         public int ClassifiedId { get; set; }
     

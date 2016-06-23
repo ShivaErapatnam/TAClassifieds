@@ -117,16 +117,11 @@ namespace TAClassifieds.Controllers
 
                     HttpCookie chkEmail = new HttpCookie("email");
 
-                    HttpCookie chkPwd = new HttpCookie("pwd");
                     if (model.RememberMe)
                     {
                         chkEmail.Expires = DateTime.Now.AddSeconds(3600);
                         chkEmail.Value = model.Email;
                         Response.Cookies.Add(chkEmail);
-
-                        chkPwd.Expires = DateTime.Now.AddSeconds(3600);
-                        chkPwd.Value = model.UPassword;
-                        Response.Cookies.Add(chkPwd);
                     }
                     else
                     {
@@ -134,12 +129,6 @@ namespace TAClassifieds.Controllers
                         {
                             chkEmail.Expires = DateTime.Now.AddDays(-1D);
                             Response.Cookies.Add(chkEmail);
-                        }
-
-                        if (Response.Cookies["pwd"] != null)
-                        {
-                            chkPwd.Expires = DateTime.Now.AddDays(-1D);
-                            Response.Cookies.Add(chkPwd);
                         }
                     }
                     #endregion
@@ -183,10 +172,8 @@ namespace TAClassifieds.Controllers
             string pwd = string.Empty;
             if (Request.Cookies["email"] != null)
                 email = Request.Cookies["email"].Value;
-            if (Request.Cookies["pwd"] != null)
-                pwd = Request.Cookies["pwd"].Value;
-            if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(pwd))
-                l = new LoginModel { Email = email, UPassword = pwd };
+            if (!String.IsNullOrEmpty(email))
+                l = new LoginModel { Email = email };
 
             return l;
         }

@@ -11,7 +11,8 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TAC_Classified
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,10 +22,22 @@ namespace TAClassifieds.Models.DAL
         }
     
         public int ClassifiedId { get; set; }
+
+        [Required]
+        [Display(Name = "Classified Title*")]
         public string ClassifiedTitle { get; set; }
         public string Summary { get; set; }
+
+        [Required]
+        [Display(Name = "Classified Description*")]
         public string Description { get; set; }
+
+        [Required]
+        [Display(Name = "Classified Image*")]
         public string ClassifiedImage { get; set; }
+
+        [Required]
+        [Display(Name = "Classified Price*")]
         public decimal ClassifiedPrice { get; set; }
         public System.DateTime PostedDate { get; set; }
         public System.Guid CreatedBy { get; set; }

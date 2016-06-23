@@ -9,7 +9,6 @@ using TAClassifieds.Models.DAL;
 
 namespace TAClassifieds.Controllers
 {
-    [Authorize]
     public class ContactController : Controller
     {
         // GET: Contact
