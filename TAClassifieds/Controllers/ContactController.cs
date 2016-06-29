@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using TAClassifieds.Models;
@@ -27,6 +28,16 @@ namespace TAClassifieds.Controllers
             db.TAC_ContactUs.Add(contact);
             db.SaveChanges();
             ViewBag.Message = "Your comment has been saved successfully!";
+            HelperClasses.SendEmail obj = new HelperClasses.SendEmail();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<b>Dear Admin</b>, <br/>");
+            sb.Append("A contact has just visited our site. Here are the details <br/><br/>");
+            sb.Append("<b>Contact Name</b> : " + contact.Name + "<br/>");
+            sb.Append("<b>Contact ID : <b>" + contact.ContactId + "<br/>");
+            sb.Append("<b>Contact Email : <b>" + contact.Email + "<br/>");
+            sb.Append("<b>Contact Comment : <b>" + contact.Comment + "<br/>");
+            sb.Append("<b>Posted Date : <b>" + contact.PostedDate + "<br/>");
+            obj.SendEmailMessage("anjania@techaspect.com", sb.ToString(), "Contact Details");
             return View("Contact", contact);
         }
     }

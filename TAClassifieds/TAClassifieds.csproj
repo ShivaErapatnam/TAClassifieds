@@ -178,6 +178,7 @@
     <Content Include="Resources\images\hondacity.jpg" />
     <Content Include="Resources\images\Houses_for_rent.jpg" />
     <Content Include="Resources\images\house_rent.jpg" />
+    <Content Include="Resources\images\iPhone5S.jpg" />
     <Content Include="Resources\images\polo.jpg" />
     <Content Include="Resources\images\smartphones.jpg" />
     <Content Include="Resources\images\smart_phones_new.jpg" />
@@ -191,6 +192,14 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\Uploaded_Images\ambasor.jpg" />
+    <Content Include="Resources\Uploaded_Images\benz.jpg" />
+    <Content Include="Resources\Uploaded_Images\car1.jpg" />
+    <Content Include="Resources\Uploaded_Images\ferrari.jpg" />
+    <Content Include="Resources\Uploaded_Images\Houses_for_rent.jpg" />
+    <Content Include="Resources\Uploaded_Images\iPhone5S.jpg" />
+    <Content Include="Resources\Uploaded_Images\maruti-suzuki-swift-default-image.png" />
+    <Content Include="Resources\Uploaded_Images\smart_phones_new.jpg" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -213,6 +222,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperClasses\SendEmail.cs" />
     <Compile Include="Models\DAL\Classified.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,6 +255,9 @@
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DAL\TAC_User.cs">
+      <DependentUpon>Classified.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DAL\usp_User_checklogin_Result.cs">
       <DependentUpon>Classified.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
@@ -296,7 +309,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Resources\images\UploadedImages\" />
-    <Folder Include="Resources\Uploaded_Images\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

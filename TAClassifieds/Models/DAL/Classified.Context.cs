@@ -12,6 +12,8 @@ namespace TAClassifieds.Models.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class TAC_Team4Entities : DbContext
     {
@@ -31,5 +33,18 @@ namespace TAClassifieds.Models.DAL
         public virtual DbSet<TAC_Country> TAC_Country { get; set; }
         public virtual DbSet<TAC_User> TAC_User { get; set; }
         public virtual DbSet<TAC_ContactUs> TAC_ContactUs { get; set; }
+    
+        public virtual ObjectResult<usp_User_checklogin_Result> usp_User_checklogin(string email, string uPassword)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var uPasswordParameter = uPassword != null ?
+                new ObjectParameter("UPassword", uPassword) :
+                new ObjectParameter("UPassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_User_checklogin_Result>("usp_User_checklogin", emailParameter, uPasswordParameter);
+        }
     }
 }

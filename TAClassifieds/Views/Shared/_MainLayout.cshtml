@@ -60,7 +60,14 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        @Html.ActionLink(" My Account", "MyAccount", "Classified", null, new { @class = "glyphicon glyphicon-user" })
+                        @if (Session["User"] == null)
+                        {
+                            <p class="glyphicon glyphicon-user">Hi Guest!</p>
+                        }
+                        else
+                        {
+                            @Html.ActionLink(" My Account", "MyAccount", "Classified", null, new { @class = "glyphicon glyphicon-user" })
+                        }
                     </li>
                     <li>
                         @Html.ActionLink(" Contact Us", "Contact", "Contact", null, new { @class = "glyphicon glyphicon-earphone" })

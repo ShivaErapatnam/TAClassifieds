@@ -29,6 +29,7 @@ namespace TAClassifieds.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
+            string password = FormsAuthentication.HashPasswordForStoringInConfigFile(model.UPassword, "SHA1");
             #region To Lock Acccout if more than 3 wrong passwords are entered
 
             Dictionary<string, int> myDictionary = (Dictionary<string, int>)Session["LockEmailList"];
@@ -40,8 +41,8 @@ namespace TAClassifieds.Controllers
                 }
                 else
                 {
-                    string actualPassword = db.TAC_User.ToList().Where(x => x.Email.Equals(model.Email)).FirstOrDefault().UPassword;
-                    if (!model.UPassword.Equals(actualPassword) && myDictionary.ContainsKey(model.Email))
+                    string actualPassword = db.TAC_User.ToList().Where(x => x.Email.Equals(model.Email)).FirstOrDefault().UPassword;                    
+                    if (!password.Equals(actualPassword) && myDictionary.ContainsKey(model.Email))
                     {
                         count = myDictionary[model.Email];
                         count++;
@@ -90,7 +91,7 @@ namespace TAClassifieds.Controllers
 
             var element = db.TAC_User.ToList().Where(
                 x => x.Email.Equals(model.Email) &&
-                x.UPassword.Equals(model.UPassword)).FirstOrDefault();
+                x.UPassword.Equals(password)).FirstOrDefault();
 
             Guid id1 = element != null ? element.UserId : Guid.Empty;
             var record1 = db.TAC_User.Find(id1);
@@ -163,6 +164,7 @@ namespace TAClassifieds.Controllers
         public ActionResult Logout()
         {
             Session["User"] = null;
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
         public LoginModel checkCookie()

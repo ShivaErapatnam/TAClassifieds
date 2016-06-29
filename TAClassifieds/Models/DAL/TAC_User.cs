@@ -26,6 +26,7 @@ namespace TAClassifieds.Models.DAL
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password*")]
+        //[RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\d$@$!%*#?&amp;]{8,}$", ErrorMessage = "Password should be Minimum 8 characters atleast 1 Alphabet, 1 Number and 1 Special Character.")]
         public string UPassword { get; set; }
 
         [Required]
@@ -38,7 +39,7 @@ namespace TAClassifieds.Models.DAL
         public Nullable<bool> Gender { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
 
-
+        [Required]
         [Display(Name = "Address")]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
@@ -56,11 +57,13 @@ namespace TAClassifieds.Models.DAL
 
         //[Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Repeat Password*")]
+        //[Compare("UPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirm Password*")]
         public string RepeatPassword { get; set; }
 
         [Required]
         [Display(Name = "Terms and Conditions")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Accept the Terms and Conditions")]
         public bool TermsAndConditions { get; set; }
 
         [Display(Name = "Error Message")]

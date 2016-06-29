@@ -11,7 +11,7 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class TAC_Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +19,11 @@ namespace TAClassifieds.Models.DAL
         {
             this.TAC_Classified = new HashSet<TAC_Classified>();
         }
-    
+
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string CategoryImage { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAC_Classified> TAC_Classified { get; set; }
     }

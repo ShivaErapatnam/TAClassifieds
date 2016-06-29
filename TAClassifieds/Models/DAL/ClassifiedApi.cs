@@ -16,7 +16,7 @@ namespace TAClassifieds.Models.DAL
             //Guid userId = new Guid("1976511D-DAF5-4F27-BBE0-29305E5C4E99");
             //lstAds = dbContext.TAC_Classified.Where(x => x.CreatedBy.ToString().ToLower() == userId.ToString().ToLower()).ToList();
             lstAds = dbContext.TAC_Classified.ToList();
-           
+
             return lstAds;
         }
 

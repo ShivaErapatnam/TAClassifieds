@@ -22,7 +22,7 @@ namespace TAClassifieds.Models.DAL
         public string ContactName { get; set; }
 
         [Required]
-        [RegularExpression(@"^((\+\d{1,3}[- ]?)?\d{10})$",ErrorMessage = "Please enter a valid mobile number.")]
+        [RegularExpression(@"^((\+\d{1,3}[- ]?)?\d{10})$", ErrorMessage = "Please enter a valid mobile number.")]
         [Display(Name = "Contact Phone No.*")]
         public string ContactPhone { get; set; }
 
@@ -30,7 +30,7 @@ namespace TAClassifieds.Models.DAL
         [Display(Name = "Contact City*")]
         public string ContactCity { get; set; }
         public int ClassifiedId { get; set; }
-    
+
         public virtual TAC_Classified TAC_Classified { get; set; }
     }
 }

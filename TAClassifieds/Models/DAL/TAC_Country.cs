@@ -11,7 +11,7 @@ namespace TAClassifieds.Models.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class TAC_Country
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +20,10 @@ namespace TAClassifieds.Models.DAL
             this.TAC_User = new HashSet<TAC_User>();
             this.TAC_User1 = new HashSet<TAC_User>();
         }
-    
+
         public int CountryId { get; set; }
         public string CountryName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAC_User> TAC_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

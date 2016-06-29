@@ -20,7 +20,7 @@ namespace TAClassifieds.Models.DAL
         {
             this.TAC_ClassifiedContact = new HashSet<TAC_ClassifiedContact>();
         }
-    
+
         public int ClassifiedId { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@ namespace TAClassifieds.Models.DAL
         public int CategoryId { get; set; }
 
         public string ErrorMessage { get; set; }
-    
+
         public virtual TAC_Category TAC_Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TAC_ClassifiedContact> TAC_ClassifiedContact { get; set; }

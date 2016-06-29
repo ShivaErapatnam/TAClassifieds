@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using TAClassifieds.Models;
 using TAClassifieds.Models.DAL;
 
@@ -26,13 +27,14 @@ namespace TAClassifieds.Controllers
                 if (ModelState.IsValid)
                 {
                     var list = db.TAC_User.ToList();
-                    if ((list.Where(x => x.Email.Equals(user.Email)).Count() <= 0))
+                    if ((list.Where(x => x.Email.Equals(user.Email)).Count() <= 0) && user.TermsAndConditions)
                     {
                         user.UserId = Guid.NewGuid();
                         user.IsAdmin = false;
                         user.IsActive = true;
                         user.IsLocked = false;
                         user.CreatedDate = DateTime.Now;
+                        user.UPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(user.UPassword, "SHA1");
                         db.TAC_User.Add(user);
                         db.SaveChanges();
                         SendMail(user);
@@ -46,9 +48,9 @@ namespace TAClassifieds.Controllers
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                ViewBag.ErrorMessagee = "Technical Problem. Please try again.";
+                ViewBag.ErrorMessage = "Technical Problem. Please try again.";
                 // ViewBag.ErrorMessage.ForeColor = System.Drawing.Color.Red;
             }
             return View();
@@ -58,34 +60,18 @@ namespace TAClassifieds.Controllers
         {
             try
             {
-                MailMessage mailMessage = new MailMessage("shivaerapatnam@gmail.com", user.Email);
-
-
-                // StringBuilder class is present in System.Text namespace
                 StringBuilder sbEmailBody = new StringBuilder();
                 sbEmailBody.Append("Dear " + user.First_Name + ",<br/><br/>");
                 sbEmailBody.Append("Please click on the following link to activate your account");
                 sbEmailBody.Append("<br/>");
-                sbEmailBody.Append("http://localhost:54917/Register/ConfirmMail?UID=" + user.UserId);
+                sbEmailBody.Append("http://www.taclassifieds.com//Register/ConfirmMail?UID=" + user.UserId);
                 sbEmailBody.Append("<br/><br/>");
                 sbEmailBody.Append("<b>TechAspect Solutions</b>");
 
-                mailMessage.IsBodyHtml = true;
-
-                mailMessage.Body = sbEmailBody.ToString();
-                mailMessage.Subject = "Account Activation";
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-
-                smtpClient.Credentials = new System.Net.NetworkCredential()
-                {
-                    UserName = "shivaerapatnam@gmail.com",
-                    Password = "Shiva@123"
-                };
-
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(mailMessage);
+                HelperClasses.SendEmail obj = new HelperClasses.SendEmail();
+                obj.SendEmailMessage(user.Email, sbEmailBody.ToString(), "Account Activation");
             }
-            catch
+            catch(Exception ex)
             {
                 ViewBag.ErrorMessagee = "Technical Problem while sending an confirmation Email. Please try again.";
             }
@@ -98,7 +84,6 @@ namespace TAClassifieds.Controllers
                 TAC_User user = new TAC_User();
                 if (Request.QueryString.Count > 0 && Request.QueryString.Keys[0] == "UID")
                 {
-
                     var CurrentUser = db.TAC_User.Find(UID);
                     CurrentUser.RepeatPassword = CurrentUser.UPassword;
                     CurrentUser.IsVerified = true;
