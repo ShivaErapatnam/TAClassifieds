@@ -10,7 +10,9 @@
     <link href="@Url.Content("~/Resources/css/font-awesome.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Resources/css/classifiedStyles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Resources/css/jquery-ui.css")" rel="stylesheet" type="text/css" />
-
+    <script src="~/Resources/js/jquery.min.js"></script>
+    <script src="~/Resources/js/jquery-ui.min.js"></script>
+    <script src="~/Resources/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -62,7 +64,7 @@
                     <li>
                         @if (Session["User"] == null)
                         {
-                            <p class="glyphicon glyphicon-user">Hi Guest!</p>
+                            <p style="padding-top:16px" class="glyphicon glyphicon-user">Hi Guest!</p>
                         }
                         else
                         {
@@ -87,11 +89,16 @@
         $(document).ready(function () {
             $(".image-box").on("click", function (event) {
                 var selected = "#" + $(this).attr("id");
+                localStorage.setItem('id', $(this).attr("id"));
                 $(selected).toggleClass("image-selected");
                 $('.image-box').not(this).removeClass('image-selected');
-                $(".category").text($(this).attr("id"));
+
             });
         });
+    </script>
+
+    <script>
+        $(".category").text(localStorage.getItem('id'));
     </script>
 </body>
 

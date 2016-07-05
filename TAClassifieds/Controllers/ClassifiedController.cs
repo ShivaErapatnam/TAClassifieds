@@ -65,14 +65,22 @@ namespace TAClassifieds.Controllers
                     //fileupload logic
                     if (Request.Files.Count > 0)
                     {
+                        int MaxContentLength = 1024 * 1024 * 3; //3 MB
                         var file = Request.Files[0];
 
-                        if (file != null && file.ContentLength > 0)
+                        if (file != null && file.ContentLength > 0 && file.ContentLength < MaxContentLength)
                         {
                             var fileName = Path.GetFileName(file.FileName);
                             var path = Path.Combine(Server.MapPath("../Resources/Uploaded_Images/"), fileName);
                             file.SaveAs(path);
                             postAdModel.Classified.ClassifiedImage = Path.Combine("../Resources/Uploaded_Images/", fileName);
+                        }
+                        else
+                        {
+                            if(file.ContentLength > MaxContentLength)
+                            {
+                                ViewBag.Message = "Please upload an image less 3MB ";
+                            }
                         }
                     }
 
@@ -82,11 +90,12 @@ namespace TAClassifieds.Controllers
                     dbContext.TAC_ClassifiedContact.Add(postAdModel.User);
                     dbContext.SaveChanges();
 
-                    return RedirectToAction("PostAd");
+                    return RedirectToAction("MyAccount");
                 }
             }
             catch (Exception ex)
             {
+                ViewBag.Message = "Sorry, your data was not saved.";
             }
             return View();
         }

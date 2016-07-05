@@ -32,7 +32,7 @@ namespace TAClassifieds.Models.DAL
         [Display(Name = "Classified Description*")]
         public string Description { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Classified Image*")]
         public string ClassifiedImage { get; set; }
 

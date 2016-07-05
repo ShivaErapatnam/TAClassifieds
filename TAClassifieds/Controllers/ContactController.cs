@@ -33,12 +33,24 @@ namespace TAClassifieds.Controllers
             sb.Append("<b>Dear Admin</b>, <br/>");
             sb.Append("A contact has just visited our site. Here are the details <br/><br/>");
             sb.Append("<b>Contact Name</b> : " + contact.Name + "<br/>");
-            sb.Append("<b>Contact ID : <b>" + contact.ContactId + "<br/>");
-            sb.Append("<b>Contact Email : <b>" + contact.Email + "<br/>");
-            sb.Append("<b>Contact Comment : <b>" + contact.Comment + "<br/>");
-            sb.Append("<b>Posted Date : <b>" + contact.PostedDate + "<br/>");
-            obj.SendEmailMessage("anjania@techaspect.com", sb.ToString(), "Contact Details");
+            sb.Append("<b>Contact ID : </b>" + contact.ContactId + "<br/>");
+            sb.Append("<b>Contact Email : </b>" + contact.Email + "<br/>");
+            sb.Append("<b>Contact Comment : </b>" + contact.Comment + "<br/>");
+            sb.Append("<b>Posted Date : </b>" + contact.PostedDate + "<br/>");
+            obj.SendEmailMessage(GetAdminEmails(), sb.ToString(), "Contact Details");
             return View("Contact", contact);
+        }
+        public string GetAdminEmails()
+        {
+            TAC_Team4Entities db = new TAC_Team4Entities();
+            List<string> list = db.TAC_User.Where(x => x.IsAdmin == true).Select(x => x.Email).ToList();
+            StringBuilder sb = new StringBuilder();
+            foreach (string item in list)
+            {
+                sb.Append(item);
+                sb.Append(" ");
+            }
+            return sb.ToString();
         }
     }
 }

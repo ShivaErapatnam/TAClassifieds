@@ -9,4 +9,15 @@
             <h4 class="col-sm-offset-2">@item.CategoryName</h4>
         </div>
     }
+    <script>
+        $(document).ready(function () {
+            $(".image-box").on("click", function (event) {
+                var selected = "#" + $(this).attr("id");
+                localStorage.setItem('id', $(this).attr("id"));
+                $(selected).toggleClass("image-selected");
+                $('.image-box').not(this).removeClass('image-selected');
+               
+            });
+        });
+    </script>
 </div>

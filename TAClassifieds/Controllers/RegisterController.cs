@@ -64,7 +64,7 @@ namespace TAClassifieds.Controllers
                 sbEmailBody.Append("Dear " + user.First_Name + ",<br/><br/>");
                 sbEmailBody.Append("Please click on the following link to activate your account");
                 sbEmailBody.Append("<br/>");
-                sbEmailBody.Append("http://www.taclassifieds.com//Register/ConfirmMail?UID=" + user.UserId);
+                sbEmailBody.Append("http://www.taclassifieds.com/Login/Login/ConfirmMail?UID=" + user.UserId);
                 sbEmailBody.Append("<br/><br/>");
                 sbEmailBody.Append("<b>TechAspect Solutions</b>");
 

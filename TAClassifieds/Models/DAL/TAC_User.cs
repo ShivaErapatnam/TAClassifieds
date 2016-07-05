@@ -61,9 +61,9 @@ namespace TAClassifieds.Models.DAL
         [Display(Name = "Confirm Password*")]
         public string RepeatPassword { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Terms and Conditions")]
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Accept the Terms and Conditions")]
+        //[Range(typeof(bool), "true", "true", ErrorMessage = "Accept the Terms and Conditions")]
         public bool TermsAndConditions { get; set; }
 
         [Display(Name = "Error Message")]

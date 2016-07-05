@@ -1,4 +1,4 @@
-﻿@model TAClassifieds.Models.ViewAds
+﻿ @model TAClassifieds.Models.ViewAds
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -16,11 +16,9 @@
                 </a>
                 <h4 class="col-sm-offset-2">@item.CategoryName</h4>
             </div>
-
-
         }
     </div>
-</div>
+    </div>
 <div class="row">
     <div class="adcontainer">
         <label>Ads in: <span class="category"></span></label>
@@ -42,8 +40,6 @@
                     </td>
                 </tr>
             }
-
-
         </table>
         <ul class="pagination pull-right">
             <li><a href="@Url.Action("Index","Home",new { pageNumber= Model.prevButton, categoryID=ViewBag.CategoryId })">&laquo;</a></li>

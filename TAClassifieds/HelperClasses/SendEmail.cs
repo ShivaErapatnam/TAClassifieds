@@ -14,6 +14,7 @@ namespace TAClassifieds.HelperClasses
         private string password = System.Configuration.ConfigurationManager.AppSettings["Password"];
         public void SendEmailMessage(string toEmail, string body, string subject)
         {
+
             MailMessage mailMessage = new MailMessage(fromEmail, toEmail);
 
             mailMessage.IsBodyHtml = true;

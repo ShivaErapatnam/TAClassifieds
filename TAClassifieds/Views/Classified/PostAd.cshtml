@@ -7,7 +7,17 @@
     </label>
    
     @Html.Action("CategoriesList", "Classified");
+    <script>
+        $(document).ready(function () {
+            $(".image-box").on("click", function (event) {
+                var selected = "#" + $(this).attr("id");
+                localStorage.setItem('id', $(this).attr("id"));
+                $(selected).toggleClass("image-selected");
+                $('.image-box').not(this).removeClass('image-selected');
 
+            });
+        });
+    </script>
 </div>
 <div class="row">
     <div class="logincontainer">
@@ -35,7 +45,7 @@
                 @Html.LabelFor(model => model.Classified.ClassifiedImage, htmlAttributes: new { @class = "control-label col-sm-4" })
                 @Html.ValidationMessageFor(model =>model.Classified.ClassifiedImage, "", new { @class = "text-danger" })
                 <div class="col-xs-6">
-                    <input type="file" name="file" id="uploadPic" />
+                    <input type="file" name="file" id="uploadPic"/>
                 </div>
             </div>
             <hr>
@@ -76,8 +86,6 @@
         }
     </div>
 </div>
-
-
 <div>
     @Html.ActionLink("Back to List", "Index", "Home")
 </div>
