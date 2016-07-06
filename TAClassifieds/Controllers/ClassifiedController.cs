@@ -34,7 +34,18 @@ namespace TAClassifieds.Controllers
         public ActionResult PostAd(int? categoryID)
         {
             Session["categoryID"] = categoryID;
-            return View();
+
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Login");
+
+            PostAdModel postAdModel = new PostAdModel();
+            postAdModel.User = new TAC_ClassifiedContact();
+            TAC_User model = (TAC_User)Session["User"];
+            var record = dbContext.TAC_User.Find(model.UserId);
+            postAdModel.User.ContactName = record.First_Name + " " + record.Last_Name;
+            postAdModel.User.ContactPhone = record.Phone;
+            postAdModel.User.ContactCity = record.City;
+            return View(postAdModel);
         }
 
         // POST: Classified/Create
@@ -77,7 +88,7 @@ namespace TAClassifieds.Controllers
                         }
                         else
                         {
-                            if(file.ContentLength > MaxContentLength)
+                            if (file.ContentLength > MaxContentLength)
                             {
                                 ViewBag.Message = "Please upload an image less 3MB ";
                             }
@@ -97,7 +108,7 @@ namespace TAClassifieds.Controllers
             {
                 ViewBag.Message = "Sorry, your data was not saved.";
             }
-            return View();
+            return View(postAdModel);
         }
 
         public ActionResult MyAccount(int? categoryID, int? pageNumber)
@@ -112,8 +123,9 @@ namespace TAClassifieds.Controllers
             else
             {
                 ModelState.AddModelError("User", "Please Login to continue");
-                return View(); }
-            
+                return View();
+            }
+
             int totalPageCount = 0;
             myAccountModel.nextButton = 2;
             myAccountModel.prevButton = 1;
@@ -145,7 +157,7 @@ namespace TAClassifieds.Controllers
             //{
             //    totalPageCount = (lstClassifieds.Count / 3) + 1;
             //}
-                      
+
             if (pageNumber == pagecount)
             {
                 myAccountModel.nextButton = pagecount;
@@ -163,10 +175,10 @@ namespace TAClassifieds.Controllers
                 {
                     myAccountModel.prevButton = Convert.ToInt32(pageNumber) - 1;
                 }
-                
+
             }
-              
-                                    
+
+
             myAccountModel.myAccountClassifieds = lstClassifieds;
             myAccountModel.pageCount = pagecount;
             myAccountModel.lstCategory = ClassifiedApi.GetAllCategory();

@@ -27,25 +27,31 @@ namespace TAClassifieds.Controllers
                 if (ModelState.IsValid)
                 {
                     var list = db.TAC_User.ToList();
-                    if ((list.Where(x => x.Email.Equals(user.Email)).Count() <= 0) && user.TermsAndConditions)
+                    if (user.TermsAndConditions)
                     {
-                        user.UserId = Guid.NewGuid();
-                        user.IsAdmin = false;
-                        user.IsActive = true;
-                        user.IsLocked = false;
-                        user.CreatedDate = DateTime.Now;
-                        user.UPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(user.UPassword, "SHA1");
-                        db.TAC_User.Add(user);
-                        db.SaveChanges();
-                        SendMail(user);
-                        return RedirectToAction("Login", "Login");
+                        if ((list.Where(x => x.Email.Equals(user.Email)).Count() <= 0))
+                        {
+                            user.UserId = Guid.NewGuid();
+                            user.IsAdmin = false;
+                            user.IsActive = true;
+                            user.IsLocked = false;
+                            user.CreatedDate = DateTime.Now;
+                            user.UPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(user.UPassword, "SHA1");
+                            db.TAC_User.Add(user);
+                            db.SaveChanges();
+                            SendMail(user);
+                            return RedirectToAction("Login", "Login");
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = "Email ID already exists. Please try another one.";
+                            //ViewBag.ErrorMessage.ForeColor = System.Drawing.Color.Red;
+                        }
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = "Email ID already exists. Please try another one.";
-                        //ViewBag.ErrorMessage.ForeColor = System.Drawing.Color.Red;
+                        ViewBag.ErrorMessage = "Please check the Terms and Conditions.";
                     }
-
                 }
             }
             catch (Exception ex)
@@ -64,14 +70,14 @@ namespace TAClassifieds.Controllers
                 sbEmailBody.Append("Dear " + user.First_Name + ",<br/><br/>");
                 sbEmailBody.Append("Please click on the following link to activate your account");
                 sbEmailBody.Append("<br/>");
-                sbEmailBody.Append("http://www.taclassifieds.com/Login/Login/ConfirmMail?UID=" + user.UserId);
+                sbEmailBody.Append("http://www.taclassifieds.com/Register/ConfirmMail?UID=" + user.UserId);
                 sbEmailBody.Append("<br/><br/>");
                 sbEmailBody.Append("<b>TechAspect Solutions</b>");
 
                 HelperClasses.SendEmail obj = new HelperClasses.SendEmail();
                 obj.SendEmailMessage(user.Email, sbEmailBody.ToString(), "Account Activation");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorMessagee = "Technical Problem while sending an confirmation Email. Please try again.";
             }

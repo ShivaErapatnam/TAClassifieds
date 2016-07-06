@@ -64,7 +64,7 @@
                     <li>
                         @if (Session["User"] == null)
                         {
-                            <p style="padding-top:16px" class="glyphicon glyphicon-user">Hi Guest!</p>
+                            <p style="padding-top:16px" class="glyphicon glyphicon-user"> Hi Guest!</p>
                         }
                         else
                         {
@@ -82,17 +82,38 @@
     <footer class="container text-center">
         <p>2016 @@Techaspect Solutions</p>
     </footer>
-    <script src="@Url.Content("~/Resources/js/jquery.min.js")"></script>
 
     <script src="@Url.Content("~/Resources/js/bootstrap.min.js")"></script>
     <script>
         $(document).ready(function () {
+
+            if (localStorage.getItem('id') == null) {
+                $("#post-ad-form").hide();
+            }
+            else {
+                $(".category").text(localStorage.getItem('id'));
+            }
+
             $(".image-box").on("click", function (event) {
+                localStorage.clear();
+                event.preventDefault();
+
                 var selected = "#" + $(this).attr("id");
                 localStorage.setItem('id', $(this).attr("id"));
                 $(selected).toggleClass("image-selected");
-                $('.image-box').not(this).removeClass('image-selected');
+                $(this).not(this).removeClass('image-selected');
+                $(".category").text(localStorage.getItem('id'));
+                var href = $(this).closest('a').attr('href');
+                window.location.href = href;
+                $("#post-ad-form").show();
 
+            });
+            $('.glyphicon.glyphicon-tasks.alt').on("click", function (event) {
+
+                event.preventDefault();
+                localStorage.clear();
+                var href = $(this).closest('a').attr('href');
+                window.location.href = href;
             });
         });
     </script>
@@ -101,4 +122,5 @@
         $(".category").text(localStorage.getItem('id'));
     </script>
 </body>
+</html>
 

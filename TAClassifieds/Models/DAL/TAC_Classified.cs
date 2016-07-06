@@ -41,6 +41,8 @@ namespace TAClassifieds.Models.DAL
         public decimal ClassifiedPrice { get; set; }
         public System.DateTime PostedDate { get; set; }
         public System.Guid CreatedBy { get; set; }
+        [Required]
+        [Display(Name = "Classified Type Selected")]
         public int CategoryId { get; set; }
 
         public string ErrorMessage { get; set; }

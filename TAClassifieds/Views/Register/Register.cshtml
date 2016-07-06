@@ -14,22 +14,22 @@
                 <div class="col-sm-6">
                     @Html.TextBoxFor(x => x.First_Name, new { @class = "form-control", placeholder = "Enter your First Name", name = "firstname", id = "firstname" })
                     <p class="text-danger">@Html.ValidationMessageFor(x => x.First_Name)</p>
-</div>
+                </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.Last_Name, new { @class = "control-label col-sm-4" })
                 <div class="col-sm-6">
                     @Html.TextBoxFor(x => x.Last_Name, new { @class = "form-control", placeholder = "Enter your Last Name", name = "lastname", id = "lastname" })
                     <p class="text-danger">@Html.ValidationMessageFor(x => x.Last_Name)</p>
-</div>
+                </div>
             </div>
-          
+
             <div class="form-group">
                 @Html.LabelFor(x => x.Email, new { @class = "control-label col-sm-4" })
                 <div class="col-sm-6">
                     @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Enter your email id", name = "email", id = "email" })
                     <p class="text-danger">@Html.ValidationMessageFor(x => x.Email)</p>
-</div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -38,7 +38,7 @@
                 <div class="col-sm-6">
                     @Html.PasswordFor(x => x.UPassword, new { @class = "form-control", placeholder = "Enter your Password", name = "pwd", id = "pwd" })
                     <p class="text-danger">@Html.ValidationMessageFor(x => x.UPassword)</p>
-</div>
+                </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(x => x.RepeatPassword, new { @class = "control-label col-sm-4" })
@@ -46,23 +46,33 @@
                 <div class="col-sm-6">
                     @Html.PasswordFor(x => x.RepeatPassword, new { @class = "form-control", placeholder = "Repeat your password", name = "repeatpwd", id = "repeatpwd" })
                     <p class="text-danger">@Html.ValidationMessageFor(x => x.RepeatPassword)</p>
-</div>
+                </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(x => x.Address1, new { @class = "control-label col-sm-4" })
+                @Html.LabelFor(x => x.City, new { @class = "control-label col-sm-4" })
 
                 <div class="col-sm-6">
-                    @Html.TextBoxFor(x => x.Address1, new { @class = "form-control", placeholder = "Enter Your Address" })
-                    <p class="text-danger">@Html.ValidationMessageFor(x => x.Address1)</p>
+                    @Html.TextBoxFor(x => x.City, new { @class = "form-control", placeholder = "Enter Your City" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.City)</p>
 
-</div>
+                </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(x => x.Phone, new { @class = "control-label col-sm-4" })
+
+                <div class="col-sm-6">
+                    @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", placeholder = "Enter Your Phone Number" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.Phone)</p>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-10">
                     <div class="checkbox" id="terms" name="terms">
                         @Html.CheckBoxFor(m => m.TermsAndConditions)
-                        @Html.LabelFor(m => m.TermsAndConditions)<br/>
+                        @Html.LabelFor(m => m.TermsAndConditions)<br />
                         <p class="text-danger">@Html.ValidationMessageFor(x => x.TermsAndConditions)</p>
 
                     </div>
@@ -71,7 +81,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-12">
-                    <input type="submit" value="Create" class="btn btn-md btn-primary" id="create-btn"/>
+                    <input type="submit" value="Create" class="btn btn-md btn-primary" id="create-btn" />
                 </div>
             </div>
         }

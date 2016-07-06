@@ -38,14 +38,18 @@ namespace TAClassifieds.Models.DAL
         public string Last_Name { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
-
-        [Required]
-        [Display(Name = "Address")]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
+
+        [Required]
         public string City { get; set; }
         public string State { get; set; }
         public Nullable<int> Country { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone Number*")]
+        [Required]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered phone format is not valid.")]
         public string Phone { get; set; }
         public Nullable<bool> IsVerified { get; set; }
         public Nullable<bool> IsLocked { get; set; }
@@ -62,7 +66,7 @@ namespace TAClassifieds.Models.DAL
         public string RepeatPassword { get; set; }
 
         //[Required]
-        [Display(Name = "Terms and Conditions")]
+        [Display(Name = "Terms and Conditions*")]
         //[Range(typeof(bool), "true", "true", ErrorMessage = "Accept the Terms and Conditions")]
         public bool TermsAndConditions { get; set; }
 
